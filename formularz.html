@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Umów Wizytę | Studio Tattoo</title>
+    <!-- Logo na pasku w przeglądarce (Favicon) -->
+    <link rel="icon" type="image/png" href="logo2.png">
+    <style>
+        :root {
+            --bg-card: rgba(18, 38, 30, 0.88);
+            --bg-nav: rgba(14, 28, 22, 0.95);
+            --bg-input: rgba(11, 25, 20, 0.9);
+            --accent-green-bright: #52b788;
+            --accent-green-hover: #74c69d;
+            --accent-button: #2d6a4f;
+            --text-light: #ffffff;
+            --text-muted: #b7e4c7;
+            --border-color: rgba(82, 183, 136, 0.3);
+            --border-nav: rgba(82, 183, 136, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0b1d15;
+            color: var(--text-light);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: linear-gradient(rgba(11, 29, 21, 0.75), rgba(11, 29, 21, 0.85)), 
+                              url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+
+        /* Header / Nav */
+        header {
+            background-color: var(--bg-nav);
+            border-bottom: 1px solid var(--border-nav);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 2rem;
+        }
+
+        .logo-nav {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--text-light);
+        }
+
+        .logo-nav img {
+            height: 65px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .logo-text span {
+            color: var(--accent-green-bright);
+        }
+
+        .btn-back {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-back:hover {
+            color: var(--accent-green-bright);
+        }
+
+        /* Form Container */
+        .form-section {
+            flex: 1;
+            padding: 150px 2rem 60px;
+            max-width: 750px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .form-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .form-title {
+            text-align: center;
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background-color: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%22%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2352b788%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 0.65rem auto;
+            padding-right: 2.5rem;
+        }
+
+        select option {
+            background-color: #0b1d15;
+            color: var(--text-light);
+            padding: 10px;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-green-bright);
+            box-shadow: 0 0 10px rgba(82, 183, 136, 0.4);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: var(--accent-button);
+            color: #fff;
+            padding: 1rem;
+            border: 1px solid var(--accent-green-bright);
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--accent-green-hover);
+            color: #0b1d15;
+            box-shadow: 0 0 20px rgba(82, 183, 136, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(7, 18, 13, 0.95);
+            border-top: 1px solid var(--border-color);
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .footer-copy {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* MOBILE RESPONSIVE FORM STYLES */
+        @media (max-width: 600px) {
+            .nav-container {
+                padding: 0.8rem 1.2rem;
+            }
+
+            .logo-nav img {
+                height: 50px;
+            }
+
+            .logo-text {
+                font-size: 1.2rem;
+            }
+
+            .form-section {
+                padding: 120px 1.2rem 40px;
+            }
+
+            .form-card {
+                padding: 1.5rem 1.2rem;
+            }
+
+            .form-title {
+                font-size: 1.6rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo-nav">
+                <img src="logo2.png" alt="Studio Tattoo Logo">
+                <div class="logo-text">Studio <span>Tattoo</span></div>
+            </a>
+            <a href="index.html" class="btn-back">&larr; Powrót</a>
+        </div>
+    </header>
+
+    <!-- Form Section -->
+    <div class="form-section">
+        <div class="form-card">
+            <h1 class="form-title">Umów Wizytę</h1>
+            <p class="form-subtitle">Wypełnij formularz, aby zarezerwować termin lub otrzymać wycenę tatuażu.</p>
+
+            <!-- FORMULARZ WYSYŁAJĄCY NA E-MAIL W TLE -->
+            <form action="https://formsubmit.co/koklaudia05@gmail.com" method="POST">
+                
+                <!-- Opcje konfiguracji wysyłki FormSubmit -->
+                <input type="hidden" name="_subject" value="Nowe zgłoszenie - Studio Tattoo">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_captcha" value="false">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fname">Imię i Nazwisko *</label>
+                        <input type="text" id="fname" name="Imię_i_Nazwisko" placeholder="np. Jan Kowalski" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Adres E-mail klienta *</label>
+                        <input type="email" id="email" name="Email_Klienta" placeholder="jan@example.com" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Numer Telefonu *</label>
+                        <input type="tel" id="phone" name="Telefon" placeholder="+48 000 000 000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Preferowana Data Wizyty</label>
+                        <input type="date" id="date" name="Preferowana_Data">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="placement">Umiejscowienie Tatuażu</label>
+                        <input type="text" id="placement" name="Umiejscowienie" placeholder="np. przedramię, łydka, plecy">
+                    </div>
+                    <div class="form-group">
+                        <label for="size">Przybliżony Rozmiar (cm)</label>
+                        <input type="text" id="size" name="Rozmiar" placeholder="np. 15x10 cm">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="style">Styl Tatuażu</label>
+                    <select id="style" name="Styl_Tatuazu">
+                        <option value="">-- Wybierz styl --</option>
+                        <option value="Czarno-szary">Czarno-szary (Black & Grey)</option>
+                        <option value="Realizm">Realizm</option>
+                        <option value="Minimalizm">Minimalizm / Fine Line</option>
+                        <option value="Botaniczny">Botaniczny / Roślinny</option>
+                        <option value="Traditional">Traditional / Neotraditional</option>
+                        <option value="Inny">Inny / Do uzgodnienia</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Opis Pomysłu / Uwagi *</label>
+                    <textarea id="description" name="Opis_Pomyslu" placeholder="Opisz swój pomysł na tatuaż..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Wyślij Rezerwację</button>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-copy">
+            &copy; 2026 Studio Tattoo. Wszelkie prawa zastrzeżone.
+        </div>
+    </footer>
+
+</body>
+</html>
